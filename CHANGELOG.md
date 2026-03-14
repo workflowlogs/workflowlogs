@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.1](https://github.com/josephjoberno/n8n-nodes-workflowlogs/compare/v0.3.0...v0.3.1) (2026-03-14)
+
+### Bug Fixes
+
+* **build:** copy SVG icon to dist during build ([4f5a139](https://github.com/josephjoberno/n8n-nodes-workflowlogs/commit/4f5a13972f898d48623a0609e099e52244f4513f))
+
 ## [0.3.0](https://github.com/josephjoberno/n8n-nodes-workflowlogs/compare/v0.2.3...v0.3.0) (2026-03-14)
 
 ### Features
