@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.0](https://github.com/josephjoberno/n8n-nodes-workflowlogs/compare/v0.3.1...v0.4.0) (2026-03-14)
+
+### Features
+
+* **node:** auto-bind workflow metadata from n8n context ([7e4e918](https://github.com/josephjoberno/n8n-nodes-workflowlogs/commit/7e4e918c8c0d3e7c02cabf42d18f0d0a234cb583))
+
 ## [0.3.1](https://github.com/josephjoberno/n8n-nodes-workflowlogs/compare/v0.3.0...v0.3.1) (2026-03-14)
 
 ### Bug Fixes
