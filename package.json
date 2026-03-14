@@ -1,5 +1,5 @@
 {
-  "name": "n8n-nodes-n8nlogs",
+  "name": "n8n-nodes-workflowlogs",
   "version": "0.2.0",
   "description": "n8n community node for sending workflow logs (success/error) to WorkflowLogs monitoring platform",
   "keywords": [
@@ -15,16 +15,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/josephjoberno/n8n-nodes-n8nlogs"
+    "url": "https://github.com/josephjoberno/n8n-nodes-workflowlogs"
   },
   "main": "dist/index.js",
   "n8n": {
     "n8nNodesApiVersion": 1,
     "nodes": [
-      "dist/nodes/N8nLogs/N8nLogs.node.js"
+      "dist/nodes/WorkflowLogs/WorkflowLogs.node.js"
     ],
     "credentials": [
-      "dist/credentials/N8nLogsApi.credentials.js"
+      "dist/credentials/WorkflowLogsApi.credentials.js"
     ]
   },
   "scripts": {
