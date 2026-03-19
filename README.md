@@ -1,128 +1,180 @@
-# n8n-nodes-workflowlogs
+<p align="center">
+  <img src="nodes/WorkflowLogs/workflowlogs.svg" alt="WorkflowLogs" width="60" />
+</p>
 
-n8n community node for sending workflow logs (success/error) to the [WorkflowLogs](https://workflowlogs.com) monitoring platform.
+<h1 align="center">n8n-nodes-workflowlogs</h1>
 
-![n8n](https://img.shields.io/badge/n8n-community--node-ff6d5a)
-![npm](https://img.shields.io/npm/v/n8n-nodes-workflowlogs)
-![license](https://img.shields.io/npm/l/n8n-nodes-workflowlogs)
+<p align="center">
+  Stop silent workflow failures. Get real-time error monitoring for your n8n automations.
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/n8n-nodes-workflowlogs"><img src="https://img.shields.io/npm/v/n8n-nodes-workflowlogs" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/n8n-nodes-workflowlogs"><img src="https://img.shields.io/npm/dm/n8n-nodes-workflowlogs" alt="npm downloads" /></a>
+  <a href="https://github.com/workflowlogs/n8n-nodes-workflowlogs/blob/main/LICENSE.md"><img src="https://img.shields.io/npm/l/n8n-nodes-workflowlogs" alt="license" /></a>
+  <img src="https://img.shields.io/badge/n8n-community--node-ff6d5a" alt="n8n community node" />
+</p>
+
+<p align="center">
+  <a href="https://workflowlogs.com">Website</a> &middot;
+  <a href="https://workflowlogs.com/docs">Documentation</a> &middot;
+  <a href="https://github.com/workflowlogs/n8n-nodes-workflowlogs/issues">Report Bug</a>
+</p>
+
+---
+
+## The Problem
+
+Your n8n workflows fail silently. An API changes, a credential expires, a timeout occurs — and nobody knows until a customer complains or data stops flowing. n8n has no centralized monitoring, no cross-workflow error dashboard, and no alerting.
+
+**WorkflowLogs** fixes this with a single drag-and-drop node.
+
+<p align="center">
+  <img src="assets/dashboard-preview.png" alt="WorkflowLogs Dashboard" width="700" />
+</p>
+
+## Features
+
+- **Auto-Detect Mode** — Extracts error messages, stack traces, and node names from the Error Trigger automatically. Zero configuration.
+- **Smart Error Grouping** — 30+ error patterns recognized (HTTP errors, timeouts, auth failures, DB errors, n8n-specific). Errors are fingerprinted to group duplicates.
+- **Auto-Severity Detection** — Errors are classified as Critical, High, Medium, Low, or Info based on pattern matching.
+- **Auto-Bound Metadata** — Workflow ID, name, execution ID, and execution URL are captured automatically from n8n context.
+- **Payload Forwarding** — Optionally include the full input data for debugging.
+- **Custom Metadata** — Attach arbitrary JSON to any log entry.
 
 ## Installation
 
-### In n8n Desktop / Self-hosted
+### n8n Desktop / Self-hosted
 
-1. Open **Settings** > **Community Nodes**
+1. Go to **Settings** > **Community Nodes**
 2. Enter `n8n-nodes-workflowlogs`
 3. Click **Install**
 
-### Via npm (for custom n8n setups)
+<p align="center">
+  <img src="assets/n8n-install-step1.svg" alt="Step 1: Navigate to Community Nodes" width="320" />
+  &nbsp;&nbsp;
+  <img src="assets/n8n-install-step2.svg" alt="Step 2: Install the package" width="380" />
+</p>
+
+### npm
 
 ```bash
 cd ~/.n8n
 npm install n8n-nodes-workflowlogs
 ```
 
-Then restart n8n.
+Restart n8n after installation.
 
-## Setup
+## Quick Start
 
-1. Sign up at [workflowlogs.com](https://workflowlogs.com) (or your self-hosted instance)
-2. Create a project and copy your **API Key**
-3. In n8n, go to **Credentials** > **New** > **WorkflowLogs API**
-4. Paste your API key and set the Base URL (default: `https://api.workflowlogs.com`)
+### 1. Get your API key
 
-## Node: WorkflowLogs
+Sign up at [workflowlogs.com](https://workflowlogs.com) (free tier — 1,000 logs/month, no credit card) and create a project.
 
-The **WorkflowLogs** node sends log entries to your WorkflowLogs dashboard.
+### 2. Add credentials in n8n
 
-### Parameters
+Go to **Credentials** > **New** > **WorkflowLogs API** and paste your API key.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| **Log Type** | `ERROR` / `SUCCESS` | The type of log event |
-| **Message** | string | The log message (supports n8n expressions) |
+<p align="center">
+  <img src="assets/n8n-credentials.svg" alt="WorkflowLogs Credentials Setup" width="560" />
+</p>
 
-### Additional Fields
+### 3. Monitor errors
 
-| Field | Type | Description |
-|-------|------|-------------|
-| Error Code | string | Categorize errors (e.g. `TIMEOUT`, `AUTH_FAILED`) |
-| Workflow ID | string | Auto-filled with `{{$workflow.id}}` |
-| Workflow Name | string | Auto-filled with `{{$workflow.name}}` |
-| Execution ID | string | Auto-filled with `{{$execution.id}}` |
-| Node Name | string | Name of the node that triggered the log |
-| Node Type | string | Type of the node that triggered the log |
-| Stack Trace | string | Full stack trace for errors |
-| Include Input Data | boolean | Attach the input item data as payload |
-| Custom Metadata | JSON | Custom JSON metadata to attach |
+Connect the **Error Trigger** to the **WorkflowLogs** node:
 
-## Usage Examples
+```
+[Error Trigger] → [WorkflowLogs]
+```
 
-### Error Monitoring
+That's it. Errors are detected, classified, and sent to your dashboard automatically.
 
-Connect the **Error Trigger** node to **WorkflowLogs** with Log Type set to `ERROR`:
+<p align="center">
+  <img src="assets/n8n-node-preview.png" alt="WorkflowLogs n8n Node" width="500" />
+</p>
 
+## Usage
+
+### Auto-Detect Mode (recommended)
+
+Works with the **Error Trigger** node. The node automatically extracts:
+
+| Data | Source |
+|------|--------|
+| Error message | `execution.error.message` |
+| Stack trace | `execution.error.stack` |
+| Failed node name | `execution.lastNodeExecuted` |
+| Workflow ID & name | n8n context (auto-bound) |
+| Execution ID & URL | n8n context (auto-bound) |
+
+### Manual Mode
+
+For custom logging (success events, custom messages):
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| Log Type | `ERROR` / `SUCCESS` | Yes | Event type |
+| Message | string | Yes | Log message (supports n8n expressions) |
+| Error Code | string | No | e.g. `TIMEOUT`, `AUTH_FAILED` |
+| Severity | select | No | Override auto-detected severity |
+| Stack Trace | string | No | Full stack trace |
+| Include Input Data | boolean | No | Attach input item as payload |
+| Custom Metadata | JSON | No | Arbitrary JSON data |
+
+### Common Patterns
+
+**Error monitoring:**
 ```
 [Error Trigger] → [WorkflowLogs (ERROR)]
 ```
 
-The node automatically captures the error message, workflow details, and execution ID.
-
-### Success Logging
-
-Add **WorkflowLogs** at the end of your workflow with Log Type set to `SUCCESS`:
-
+**Success tracking:**
 ```
 [Your Workflow] → [WorkflowLogs (SUCCESS)]
 ```
 
-### Error + Slack Notification
-
-Combine error logging with team notifications:
-
+**Error + team notification:**
 ```
 [Error Trigger] → [WorkflowLogs (ERROR)]
-                → [Slack]
+               → [Slack / Email]
 ```
 
 ## Templates
 
-Ready-to-import workflow templates are available in the [`templates/`](./templates/) directory:
+Import ready-made workflows from the [`templates/`](./templates/) directory:
 
-- **basic-error-monitoring.json** — Error Trigger → WorkflowLogs
-- **success-logging.json** — HTTP Trigger → Process → WorkflowLogs (SUCCESS)
-- **error-with-slack-notification.json** — Error Trigger → WorkflowLogs + Slack
+| Template | Description |
+|----------|-------------|
+| `basic-error-monitoring.json` | Error Trigger → WorkflowLogs |
+| `success-logging.json` | HTTP Trigger → Process → WorkflowLogs (SUCCESS) |
+| `error-with-slack-notification.json` | Error Trigger → WorkflowLogs + Slack |
 
-Import them in n8n via **Workflows** > **Import from File**.
+Import in n8n via **Workflows** > **Import from File**.
 
 ## Self-Hosting
 
-If you self-host WorkflowLogs, change the **Base URL** in the credential settings to point to your instance:
+Change the **Base URL** in credentials to your instance:
 
 ```
-https://your-workflowlogs-instance.com
+https://your-instance.example.com
 ```
 
 ## Development
 
 ```bash
-# Clone the repo
-git clone https://github.com/josephjoberno/n8n-nodes-workflowlogs.git
+git clone https://github.com/workflowlogs/n8n-nodes-workflowlogs.git
 cd n8n-nodes-workflowlogs
-
-# Install dependencies
 npm install
-
-# Build
 npm run build
-
-# Watch mode
-npm run dev
+npm run dev   # watch mode
 ```
-
-### Publishing
-
-Releases are automated via GitHub Actions. Every push to `main` triggers a patch release. Use the workflow dispatch for minor/major bumps.
 
 ## License
 
 [MIT](./LICENSE.md)
+
+---
+
+<p align="center">
+  Built by <a href="https://workflowlogs.com">WorkflowLogs</a>
+</p>

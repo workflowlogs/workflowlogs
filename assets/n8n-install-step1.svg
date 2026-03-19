@@ -1,0 +1,15 @@
+<svg viewBox="0 0 320 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="300" rx="8" fill="#1a1a1a" />
+  <text x="32" y="30" fill="#aaa" font-size="11" font-family="system-ui, sans-serif">Usage and plan</text>
+  <text x="32" y="56" fill="#aaa" font-size="11" font-family="system-ui, sans-serif">Personal</text>
+  <text x="32" y="82" fill="#aaa" font-size="11" font-family="system-ui, sans-serif">Users</text>
+  <text x="32" y="108" fill="#aaa" font-size="11" font-family="system-ui, sans-serif">Project roles</text>
+  <text x="32" y="134" fill="#aaa" font-size="11" font-family="system-ui, sans-serif">n8n API</text>
+  <text x="32" y="160" fill="#aaa" font-size="11" font-family="system-ui, sans-serif">External Secrets</text>
+  <text x="32" y="186" fill="#aaa" font-size="11" font-family="system-ui, sans-serif">Environments</text>
+  <text x="32" y="212" fill="#aaa" font-size="11" font-family="system-ui, sans-serif">SSO</text>
+  <rect x="8" y="222" width="304" height="26" rx="5" fill="#EA4B7118" stroke="#EA4B71" stroke-width="1" />
+  <text x="32" y="238" fill="#EA4B71" font-size="11" font-family="system-ui, sans-serif" font-weight="700">Community nodes</text>
+  <path d="M14 236 L22 228 L22 244" fill="#ef4444" />
+  <text x="32" y="264" fill="#aaa" font-size="11" font-family="system-ui, sans-serif">Instance-level MCP</text>
+</svg>

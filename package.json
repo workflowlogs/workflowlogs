@@ -13,9 +13,10 @@
   "author": {
     "name": "WorkflowLogs"
   },
+  "homepage": "https://workflowlogs.com/docs",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/josephjoberno/n8n-nodes-workflowlogs.git"
+    "url": "git+https://github.com/workflowlogs/n8n-nodes-workflowlogs.git"
   },
   "main": "dist/index.js",
   "files": [
